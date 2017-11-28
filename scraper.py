@@ -8,10 +8,11 @@ import scraperwiki
 import urllib2
 from datetime import datetime
 from bs4 import BeautifulSoup
-import requests
 
 
-#### FUNCTIONS 1.0
+
+#### FUNCTIONS 1.1
+import requests       #import requests library to validate urls.
 
 def validateFilename(filename):
     filenameregex = '^[a-zA-Z0-9]+_[a-zA-Z0-9]+_[a-zA-Z0-9]+_[0-9][0-9][0-9][0-9]_[0-9QY][0-9]$'
@@ -103,7 +104,7 @@ blocks = soup.find_all('div', 'resource-buttons hidden-sm hidden-xs')
 for block in blocks:
     links = block.find_all('a')
     for link in links:
-        if '.csv' in link['href']:
+        if '.csv' in link['href'] and 'nvoice' in link['href']:
             url = link['href']
             title = url.split('/')[-1].split()
             if 'April' in title[0]:
