@@ -4,4 +4,4 @@ cssselect==0.9.1
 beautifulsoup4
 python-dateutil
 ndg-httpsclient
-python-2.7.13
+
