@@ -104,7 +104,7 @@ for block in blocks:
     links = block.find_all('a')
     for link in links:
         if '.csv' in link['href']:
-            url = link['href'].replace(' ', '%20').encode('ascii').decode("utf-8")
+            url = link['href'].replace(' ', '%20').encode('utf-8')
             title = url.split('/')[-1].split('%20')
             if 'April' in title[0]:
                 csvMth = title[0][:3]
