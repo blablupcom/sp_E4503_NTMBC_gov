@@ -105,7 +105,7 @@ for block in blocks:
     for link in links:
         if '.csv' in link['href']:
             url = link['href'].replace(' ', '%20')
-            title = url.split('/')[-1].split()
+            title = url.split('/')[-1].split('%20')
             if 'April' in title[0]:
                 csvMth = title[0][:3]
                 csvYr = title[1]
