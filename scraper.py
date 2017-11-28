@@ -39,6 +39,7 @@ def validateFilename(filename):
 
 def validateURL(url):
     try:
+        print url
         r = requests.get(url)
         count = 1
         while r.status_code == 500 and count < 4:
