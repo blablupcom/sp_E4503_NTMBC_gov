@@ -39,7 +39,6 @@ def validateFilename(filename):
 
 def validateURL(url):
     try:
-        print url
         r = requests.get(url)
         count = 1
         while r.status_code == 500 and count < 4:
@@ -47,7 +46,7 @@ def validateURL(url):
             count += 1
             r = requests.get(url)
         sourceFilename = r.headers.get('Content-Disposition')
-
+        print r.status_code
         if sourceFilename:
             ext = os.path.splitext(sourceFilename)[1].replace('"', '').replace(';', '').replace(' ', '')
         else:
