@@ -38,26 +38,25 @@ def validateFilename(filename):
 
 
 def validateURL(url):
-    #try:
-       # r = requests.get(url.replace(" ", "%20"),verify=False)
-        r = urllib2.urlopen(url.replace(" ", "%20"))
+    try:
+        r = requests.get(url.replace(" ", "%20"))
         count = 1
-        while r.getcode() == 500 and count < 4:
+        while r.status_code == 500 and count < 4:
             print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
             count += 1
-            r = urllib2.urlopen(url.replace(" ", "%20"))
+            r = requests.get(url.replace(" ", "%20"))
         sourceFilename = r.headers.get('Content-Disposition')
-        print r.getcode()
+
         if sourceFilename:
             ext = os.path.splitext(sourceFilename)[1].replace('"', '').replace(';', '').replace(' ', '')
         else:
             ext = os.path.splitext(url)[1]
-        validURL = r.getcode() == 200
+        validURL = r.status_code == 200
         validFiletype = ext.lower() in ['.csv', '.xls', '.xlsx']
         return validURL, validFiletype
-  #  except:
-  #      print ("Error validating URL.")
-  #      return False, False
+    except:
+        print ("Error validating URL.")
+        return False, False
 
 def validate(filename, file_url):
     validFilename = validateFilename(filename)
@@ -105,8 +104,8 @@ for block in blocks:
     links = block.find_all('a')
     for link in links:
         if '.csv' in link['href']:
-            url = link['href'].replace(' ', '%20').encode('utf-8')
-            title = url.split('/')[-1].split('%20')
+            url = link['href']
+            title = url.split('/')[-1].split()
             if 'April' in title[0]:
                 csvMth = title[0][:3]
                 csvYr = title[1]
